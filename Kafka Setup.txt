@@ -1,0 +1,34 @@
+1.Kafka Setup
+
+bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+bin\windows\kafka-server-start.bat config\server.properties
+jps
+
+
+################################################################
+environment variable setup
+
+C:\Program Files\Java\jdk-23\bin
+$env:Path += ";C:\Program Files\Java\jdk-23\bin"
+
+################################################################
+
+2.Create Kafka Topic (Like Table In a Database)
+
+Theory :
+
+* Source (Producer) ---> Kafka Topic ----> Consumer (Data Processor : Read data from topic) 
+* Partitions (File Dividers for Faster Access)
+	
+	 Example:
+Your "crypto-prices" topic has 3 partitions:
+
+Partition 0 → BTC data
+Partition 1 → ETH data
+Partition 2 → DOGE data
+
+topic create: 
+bin\windows\kafka-topics.bat --create --topic crypto_prices --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
+Check if the topic was created:
+bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
+
